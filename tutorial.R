@@ -126,7 +126,11 @@ matrix(seq(1, 10), nrow=2)
 matrix(seq(1, 10), nrow=2) / 2
 
 
-XX = matrix(seq(1, 10), nrow=2)
+XX = matrix(seq(1, 10), nrow=2, byrow=TRUE)  # 'byrow' flag set to true populates rows in the matrix before cols
+XX
+XX = matrix(seq(1, 10), ncol=2) # can specify the no. of cols for the matrix, instead of no. of rows
+XX
+XX = matrix(seq(1, 10), nrow=2) # 'byrow' not specified here, set to FALSE by default
 XX
 XX / 2        # computes but does not store, the value(s)
 XX
@@ -134,8 +138,25 @@ XX = XX / 2  # computes the value(s) and stores the result back in XX
 
 t(XX) %*% XX  # X'X ... matrix multiplication of X-transpose and X
 
+# adding names to rows and columns of a matrix
+dimnames(XX) = list(c("A", "B"),                    # row names
+                    c("V", "W", "X", "Y", "Z"))  # col names
+XX
 
+colnames(XX) # print out the column names
+rownames(XX) # print the row names
 
+rownames(XX) <- c("r1", "r2")                   # rename rows
+colnames(XX) <- c("c1", "c2", "c3", "c4", "c5") # rename columns
+
+AB = matrix(c(11, 12), nrow=2) # new matrix with 1 col and 2 rows
+AB
+
+# 'cbind' can be used to combine multiple matrices by column
+D = cbind(XX, AB) 
+rownames(D) <- c("r1", "r2")                         # rename rows in D
+colnames(D) <- c("c1", "c2", "c3", "c4", "c5", "c6") # remane columns in D
+D
 
 # Selecting parts of a matrix
 # We can consider the whole matrix
@@ -158,7 +179,7 @@ XX[, c(4, 2, 3)]
 
 # ... or a single cell
 XX[1, 2]    # the cell at row 1, column 2
-
+XX["r1", "c2"] # can also use row and col names to select a cell or parts of a matri
 
 
 
